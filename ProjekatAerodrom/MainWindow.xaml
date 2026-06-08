@@ -5,55 +5,225 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjekatAerodrom"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Najbolji projekat ikad" Height="650" Width="1000"
+        Background="#050505">
+
+    <Window.Resources>
+        <!-- 1. STIL ZA TABCONTROL -->
+        <Style TargetType="{x:Type TabControl}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="#00FFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <!-- 2. STIL ZA TABITEM -->
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Background" Value="#111111"/>
+            <Setter Property="Foreground" Value="#00FFFF"/>
+            <Setter Property="Padding" Value="15,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Border x:Name="Border" BorderThickness="1,1,1,0" BorderBrush="#3300FFFF" Background="#0A0A0A" Margin="2,0">
+                            <ContentPresenter x:Name="ContentSite" ContentSource="Header" Margin="10,5" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#00FFFF"/>
+                                <Setter TargetName="Border" Property="Background" Value="#151515"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ListBox}">
+            <Setter Property="Background" Value="#0A0A0A"/>
+            <Setter Property="BorderBrush" Value="#00FFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="White"/>
+            <!-- Ključno: Prisiljava sadržaj svakog reda da se raširi od ivice do ivice -->
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
+
+        <!-- STIL ZA REDOVE UNUTAR LISTBOX-A -->
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <!-- Donja tanka neon linija razdvaja redove -->
+                        <Border x:Name="ItemBorder" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="#1100FFFF" 
+                                BorderThickness="0,0,0,1" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!-- Hover efekat -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ItemBorder" Property="Background" Value="#1100FFFF"/>
+                            </Trigger>
+                            <!-- Selektovan red - Pun TRON neon sjaj ivica -->
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="ItemBorder" Property="Background" Value="#152525"/>
+                                <Setter TargetName="ItemBorder" Property="BorderBrush" Value="#00FFFF"/>
+                                <Setter Property="Foreground" Value="#00FFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- STIL ZA NEON TEKST (Naslovi) -->
+        <Style x:Key="NeonText" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="#00FFFF"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#00FFFF" BlurRadius="5" ShadowDepth="0" Opacity="1"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        <TabControl Margin="0" Background="#F9F9F9">
+        <TabControl Margin="10">
 
-            <TabItem Header="Pregled Podataka" FontSize="14" Padding="10,5">
-                <Grid Background="White">
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <TextBlock Text="Dobrodošli na prvi tab!" 
-                                   FontSize="22" 
-                                   FontWeight="Bold" 
-                                   Foreground="#333333"
-                                   Margin="0,0,0,20" 
-                                   HorizontalAlignment="Center"/>
-
-                        <TextBlock Text="Ovdje možeš postaviti DataGrid ili ListBox za prikaz podataka." 
-                                   FontSize="14" 
-                                   Foreground="#666666"
-                                   Margin="0,0,0,20" 
-                                   HorizontalAlignment="Center"/>
-
-                        <Button Content="Pokreni Akciju" 
-                                Width="150" 
-                                Height="35" 
-                                Background="#007ACC" 
-                                Foreground="White" 
-                                FontWeight="Bold"
-                                Click="BtnAkcija_Click"/>
-                    </StackPanel>
+            <TabItem Header="LETOVI">
+                <Grid Background="#050505">
+                    <!-- Ovde ide Anikin sadržaj -->
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Unos i Izmjena" FontSize="14" Padding="10,5">
-                <Grid Background="White">
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <TextBlock Text="Ovo je drugi tab aplikacije" 
-                                   FontSize="20" 
-                                   FontWeight="Bold" 
-                                   Foreground="#333333"
-                                   Margin="0,0,0,10"
-                                   HorizontalAlignment="Center"/>
+            <!-- DRUGI TAB: Aerodromi i mapa sveta -->
+            <TabItem Header="AERODROMI I MAPA">
+                <Grid Margin="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1.4*" />
+                    </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="Ovaj dio možeš iskoristiti za formu (TextBox, ComboBox) za unos novih stavki." 
+                    <!-- LEVA STRANA: LISTBOX "TABELE" -->
+                    <Grid Grid.Column="0" Margin="0,0,20,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <!-- Gornje Zaglavlje -->
+                            <RowDefinition Height="*" />
+                            <!-- Gornji ListBox -->
+                            <RowDefinition Height="Auto" />
+                            <!-- Središnji naslov -->
+                            <RowDefinition Height="Auto" />
+                            <!-- Donje Zaglavlje -->
+                            <RowDefinition Height="*" />
+                            <!-- Donji ListBox -->
+                        </Grid.RowDefinitions>
+
+                        <!-- 1. ZAGLAVLJE ZA AERODROME -->
+                        <Grid Grid.Row="0" Background="#020202" Height="30">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.6*" />
+                                <ColumnDefinition Width="1.5*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <!-- Border na dnu simulira liniju zaglavlja -->
+                            <Border Grid.ColumnSpan="4" BorderBrush="#00FFFF" BorderThickness="0,0,0,2"/>
+
+                            <TextBlock Grid.Column="0" Text="ID" Foreground="#00FFFF" FontWeight="Bold" VerticalAlignment="Center" Margin="5,0"/>
+                            <TextBlock Grid.Column="1" Text="NAZIV" Foreground="#00FFFF" FontWeight="Bold" VerticalAlignment="Center" Margin="5,0"/>
+                            <TextBlock Grid.Column="2" Text="GRAD" Foreground="#00FFFF" FontWeight="Bold" VerticalAlignment="Center" Margin="5,0"/>
+                            <TextBlock Grid.Column="3" Text="DRŽAVA" Foreground="#00FFFF" FontWeight="Bold" VerticalAlignment="Center" Margin="5,0"/>
+                        </Grid>
+
+                        <!-- 1. LISTBOX: AERODROMI -->
+                        <ListBox Grid.Row="1" Margin="0,0,0,15">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <!-- Kolone unutar svakog reda moraju imati iste proporcije kao u zaglavlju -->
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.6*" />
+                                            <ColumnDefinition Width="1.5*" />
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="1*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding ID}" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Naziv}" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding Grad}" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="3" Text="{Binding Drzava}" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <TextBlock Grid.Row="2" 
+                                   Text="LETOVI SELEKTOVANOG AERODROMA" 
+                                   Style="{StaticResource NeonText}"
                                    FontSize="14" 
-                                   Foreground="#666666"
-                                   HorizontalAlignment="Center"/>
-                    </StackPanel>
+                                   Margin="0,10,0,10"/>
+
+                        <!-- 2. ZAGLAVLJE ZA LETOVE -->
+                        <Grid Grid.Row="3" Background="#020202" Height="30">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1.2*" />
+                                <ColumnDefinition Width="1.2*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="0.9*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.ColumnSpan="5" BorderBrush="#00FFFF" BorderThickness="0,0,0,2"/>
+
+                            <TextBlock Grid.Column="0" Text="BR. LETA" Foreground="#00FFFF" FontWeight="Bold" VerticalAlignment="Center" Margin="5,0"/>
+                            <TextBlock Grid.Column="1" Text="ODREDIŠTE" Foreground="#00FFFF" FontWeight="Bold" VerticalAlignment="Center" Margin="5,0"/>
+                            <TextBlock Grid.Column="2" Text="KOMPANIJA" Foreground="#00FFFF" FontWeight="Bold" VerticalAlignment="Center" Margin="5,0"/>
+                            <TextBlock Grid.Column="3" Text="POLAZAK" Foreground="#00FFFF" FontWeight="Bold" VerticalAlignment="Center" Margin="5,0"/>
+                            <TextBlock Grid.Column="4" Text="STATUS" Foreground="#00FFFF" FontWeight="Bold" VerticalAlignment="Center" Margin="5,0"/>
+                        </Grid>
+
+                        <!-- 2. LISTBOX: LETOVI -->
+                        <ListBox Grid.Row="4">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="1.2*" />
+                                            <ColumnDefinition Width="1.2*" />
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="0.9*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding BrojLeta}" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Odrediste}" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding Kompanija}" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="3" Text="{Binding Polazak}" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="4" Text="{Binding Status}" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+
+                    <!-- DESNA STRANA: MAPA -->
+                    <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Border BorderBrush="#00FFFF" 
+                                BorderThickness="2" 
+                                Background="Black">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#00FFFF" BlurRadius="25" ShadowDepth="0" Opacity="0.8" />
+                            </Border.Effect>
+
+                            <Image Source="pack://application:,,,/Slike/europe-fin1.png" 
+                                   Stretch="Uniform"
+                                   RenderOptions.BitmapScalingMode="HighQuality">
+                            </Image>
+                        </Border>
+                    </Grid>
                 </Grid>
             </TabItem>
-
         </TabControl>
     </Grid>
 </Window>
