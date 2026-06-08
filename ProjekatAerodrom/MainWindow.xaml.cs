@@ -20,5 +20,25 @@ namespace ProjekatAerodrom
         {
             InitializeComponent();
         }
+
+        private void Dodaj_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Izmeni_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Obrisi_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ExportCSV_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
