@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjekatAerodrom"
         mc:Ignorable="d"
-        Title="Najbolji projekat ikad" Height="1000" Width="1600"
+        Title="Najbolji projekat ikad" Height="900" Width="1550"
         Background="#050505">
 
     <Window.Resources>
@@ -228,109 +228,54 @@
 
     <Grid>
         <TabControl Margin="10">
-
+            <!--Anika-->
             <TabItem Header="Letovi">
-                <TabControl Background="Transparent" BorderThickness="0,1,0,0" BorderBrush="#00FFFF" Margin="5">
-                    
-                    <TabItem Header="Pregled letova">
-                        <Grid Margin="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,10" HorizontalAlignment="Stretch" >
-                                <TextBox x:Name="txtSearch" Width="200" Margin="10,0" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0 10" HorizontalAlignment="Stretch" >
+                        <TextBox TextChanged="txtSearch_TextChanged" x:Name="txtSearch" Width="200" Margin="10 0" VerticalAlignment="Center"/>
 
-                                <ComboBox x:Name="cbStatus" Width="150" Margin="0,0,10,0" VerticalAlignment="Center">
-                                    <ComboBoxItem Content="Svi"/>
-                                    <ComboBoxItem Content="Aktivan"/>
-                                    <ComboBoxItem Content="Otkazan"/>
-                                    <ComboBoxItem Content="Odložen"/>
-                                </ComboBox>
+                        <ComboBox x:Name="cbStatus" Width="150" Margin="0 0 10 0" VerticalAlignment="Center">
+                            <ComboBoxItem Content="Svi"/>
+                            <ComboBoxItem Content="Aktivan"/>
+                            <ComboBoxItem Content="Otkazan"/>
+                            <ComboBoxItem Content="Odložen"/>
+                        </ComboBox>
 
-                                <Button x:Name="Dodaj" Click="Dodaj_Click" Content="Dodaj" Width="80" Margin="0,0,10,0"/>
-                                <Button x:Name="Izmeni" Click="Izmeni_Click" Content="Izmeni" Width="80" Margin="0,0,10,0"/>
-                                <Button x:Name="Obrisi" Click="Obrisi_Click" Content="Obriši" Width="80" Margin="0,0,20,0"/>
+                        <Button x:Name="Dodaj" Click="Dodaj_Click" Content="Dodaj" Width="80" Margin="0 0 10 0"/>
+                        <Button x:Name="Izmeni" Click="Izmeni_Click" Content="Izmeni" Width="80" Margin="0 0 10 0"/>
+                        <Button x:Name="Obrisi" Click="Obrisi_Click" Content="Obriši" Width="80" Margin="0 0 20 0"/>
 
-                                <Button x:Name="ExportCSV" Click="ExportCSV_Click" Content="Export CSV" Width="100"/>
-                            </StackPanel>
+                        <Button x:Name="ExportCSV" Click="ExportCSV_Click" Content="Export CSV" Width="100"/>
+                    </StackPanel>
 
-                            <DataGrid x:Name="DGletovi" Grid.Row ="1" IsReadOnly="True" SelectionMode="Single">
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn Width="Auto">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Image Source="{Binding Ikonica}" Width="25" Height="25" Stretch="Uniform"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
+                    <DataGrid x:Name="DGletovi" Grid.Row ="1" IsReadOnly="True" SelectionMode="Single">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding Ikonica}" Width="25" Height="25" Stretch="Uniform"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                                    <DataGridTextColumn Header="Broj leta" Binding="{Binding BrojLeta}" Width="*"/>
-                                    <DataGridTextColumn Header="Polazak" Binding="{Binding Polazak}" Width="*"/>
-                                    <DataGridTextColumn Header="Odredište" Binding="{Binding Odrediste}" Width="*"/>
-                                    <DataGridTextColumn Header="Kompanija" Binding="{Binding Kompanija}" Width="*"/>
-                                    <DataGridTextColumn Header="Vreme polaska" Binding="{Binding VremePolaska}" Width="*"/>
-                                    <DataGridTextColumn Header="Vreme dolaska" Binding="{Binding VremeDolaska}" Width="*"/>
-                                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </Grid>
-                    </TabItem>
-
-                    <TabItem Header ="Dodaj novi let" x:Name="DodajLetProzor">
-                        <Grid Margin="20">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="7*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <TextBlock Text="Broj leta:" Grid.Row="0" Grid.Column="0" Margin="5"/>
-                            <TextBox x:Name="txtBrojLeta" Grid.Row="0" Grid.Column="1" Margin="10,5"/>
-
-                            <TextBlock Text="Polazak:" Grid.Row="1" Grid.Column="0" Margin="5"/>
-                            <TextBox x:Name="txtPolazak" Grid.Row="1" Grid.Column="1" Margin="10,5"/>
-
-                            <TextBlock Text="Odredište:" Grid.Row="2" Grid.Column="0" Margin="5"/>
-                            <TextBox x:Name="txtOdrediste" Grid.Row="2" Grid.Column="1" Margin="10,5"/>
-
-                            <TextBlock Text="Kompanija:" Grid.Row="3" Grid.Column="0" Margin="5"/>
-                            <TextBox x:Name="txtKompanija" Grid.Row="3" Grid.Column="1" Margin="10,5"/>
-
-                            <TextBlock Text="Vreme polaska:" Grid.Row="4" Grid.Column="0" Margin="5"/>
-                            <TextBox x:Name="txtVremePolaska" Grid.Row="4" Grid.Column="1" Margin="10,5"/>
-
-                            <TextBlock Text="Vreme dolaska:" Grid.Row="5" Grid.Column="0" Margin="5"/>
-                            <TextBox x:Name="txtVremeDolaska" Grid.Row="5" Grid.Column="1" Margin="10,5"/>
-
-                            <TextBlock Text="Status:" Grid.Row="6" Grid.Column="0" Margin="5"/>
-                            <ComboBox x:Name="cbStatusDodaj" Grid.Row="6" Grid.Column="1" Margin="10,5">
-                                <ComboBoxItem Content="Aktivan"/>
-                                <ComboBoxItem Content="Otkazan"/>
-                                <ComboBoxItem Content="Odlozen"/>
-                            </ComboBox>
-
-                            <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
-                                <Button Content="Sačuvaj" Width="100" Margin="5" />
-                                <Button Content="Otkaži" Width="100" Margin="5" />
-                            </StackPanel>
-                        </Grid>
-                    </TabItem>
-                    
-                </TabControl>
+                            <DataGridTextColumn Header="Broj leta" Binding="{Binding BrojLeta}" Width="*"/>
+                            <DataGridTextColumn Header="Polazak" Binding="{Binding Polazak}" Width="*"/>
+                            <DataGridTextColumn Header="Odredište" Binding="{Binding Odrediste}" Width="*"/>
+                            <DataGridTextColumn Header="Kompanija" Binding="{Binding Kompanija}" Width="*"/>
+                            <DataGridTextColumn Header="Vreme polaska" Binding="{Binding VremePolaska}" Width="*"/>
+                            <DataGridTextColumn Header="Vreme dolaska" Binding="{Binding VremeDolaska}" Width="*"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </TabItem>
-
+            
+            <!--Nikola-->
             <TabItem Header="Aerodromi i mapa" Height="27" VerticalAlignment="Top">
                 <Grid Margin="15">
                     <Grid.ColumnDefinitions>
@@ -356,6 +301,7 @@
                             <Button Grid.Column="1" Content="Izmeni selektovan aerodrom"   HorizontalAlignment="Left" Margin="0,0,10,10" Click="Izmeni_Aerodrom"/>
                             <Button Grid.Column="2" Content="Obrisi selektovan aerodrom"   HorizontalAlignment="Left" Margin="0,0,0,10" Click="Obrisi_Aerodrom"/>
                         </Grid>
+                        
                         <DataGrid x:Name="DGAerodromi"
                                   AutoGenerateColumns="False"
                                   CanUserAddRows="False"
@@ -363,7 +309,23 @@
                                   Grid.Row="1"
                                   Margin="0,0,0,15"
                                   FontSize="10"
-                                  SelectionChanged="DGAerodromi_SelectionChanged">
+                                  SelectionChanged="DGAerodromi_SelectionChanged"
+                                  MouseMove="DGAerodromi_MouseMove"
+                                  >
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsPlaced}" Value="True">
+                                          
+                                            <Setter Property="Background" Value="#1A1A1A"/>
+                                            <Setter Property="Foreground" Value="#666666"/>
+                                            <Setter Property="Opacity" Value="0.5"/>
+                                            <Setter Property="FontStyle" Value="Italic"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.RowStyle>
+                            
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="0.6*"/>
                                 <DataGridTextColumn Header="Naziv" Binding="{Binding Naziv}" Width="1.5*"/>
@@ -398,13 +360,28 @@
 
                         <DataGrid Grid.Row="3"
                                   FontSize="10"
-                                  x:Name="DGSelektovaniLetovi">
+                                  x:Name="DGSelektovaniLetovi"
+                                  MouseMove="DGSelektovaniLetovi_MouseMove"
+                                  >
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsPlaced}" Value="True">
+                                           
+                                            <Setter Property="Background" Value="#1A1A1A"/>
+                                            <Setter Property="Foreground" Value="#666666"/>
+                                            <Setter Property="Opacity" Value="0.5"/>
+                                            <Setter Property="FontStyle" Value="Italic"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.RowStyle>
                             <DataGrid.Columns>
                                 
                                 <DataGridTextColumn Header="Broj leta" Binding="{Binding BrojLeta}" Width="*"/>
-                                <DataGridTextColumn Header="Polazak" Binding="{Binding AerodromPolaska}" Width="*"/>
-                                <DataGridTextColumn Header="Odredište" Binding="{Binding AerodromOdredista}" Width="*"/>
-                                <DataGridTextColumn Header="Kompanija" Binding="{Binding Aviokompanija}" Width="*"/>
+                                <DataGridTextColumn Header="Polazak" Binding="{Binding Polazak}" Width="*"/>
+                                <DataGridTextColumn Header="Odredište" Binding="{Binding Odrediste}" Width="*"/>
+                                <DataGridTextColumn Header="Kompanija" Binding="{Binding Kompanija}" Width="*"/>
                                 <DataGridTextColumn Header="Vreme polaska" Binding="{Binding VremePolaska}" Width="*"/>
                                 <DataGridTextColumn Header="Vreme dolaska" Binding="{Binding VremeDolaska}" Width="*"/>
                                 <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
@@ -429,6 +406,7 @@
                         </DataGrid>
                     </Grid>
 
+                    <!--MAPA-->
                     <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Border BorderBrush="#00FFFF" 
                                 BorderThickness="2" 
@@ -437,10 +415,20 @@
                                 <DropShadowEffect Color="#00FFFF" BlurRadius="25" ShadowDepth="0" Opacity="0.8" />
                             </Border.Effect>
 
-                            <Image Source="pack://application:,,,/Slike/europe-fin1.png" 
-                                   Stretch="Uniform"
-                                   RenderOptions.BitmapScalingMode="HighQuality">
-                            </Image>
+                            <Grid Width="807" Height="807">
+
+                                <Image Source="pack://application:,,,/Slike/europe-fin1.png" 
+                                        Stretch="Fill"
+                                        RenderOptions.BitmapScalingMode="HighQuality">
+                                </Image>
+
+                                <Canvas x:Name="MapaCanvas" 
+                                        Background="Transparent" 
+                                        AllowDrop="True" 
+                                        Drop="MapaCanvas_Drop">
+                                </Canvas>
+                            </Grid>
+
                         </Border>
                     </Grid>
                 </Grid>

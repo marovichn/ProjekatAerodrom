@@ -4,6 +4,7 @@ namespace ProjekatAerodrom
 {
     public class Aerodrom
     {
+        public bool IsPlaced { get; set; } = false;
         public int Id { get; set; }
         public string Naziv { get; set; }
         public string Grad { get; set; }    

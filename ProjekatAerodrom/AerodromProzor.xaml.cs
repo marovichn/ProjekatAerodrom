@@ -56,6 +56,7 @@ namespace ProjekatAerodrom
                 aerodromZaIzmenu.Grad = txtGrad.Text;
                 aerodromZaIzmenu.Drzava = txtDrzava.Text;
                 aerodromZaIzmenu.Ikonica = putanjaIkonice;
+                
 
                 MessageBox.Show("Promene su uspešno sačuvane!", "Uspeh", MessageBoxButton.OK, MessageBoxImage.Information);
             }

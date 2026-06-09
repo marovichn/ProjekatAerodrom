@@ -25,15 +25,23 @@
     <Resource Include="Slike\aerodrom-default-icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Slike\aerodrom-icon1.png" />
-    <Resource Include="Slike\aerodrom-icon2.png" />
-    <Resource Include="Slike\aerodrom-icon3.png" />
-    <Resource Include="Slike\aerodrom-icon4.png" />
+    <Resource Include="Slike\aerodrom-icon1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Slike\aerodrom-icon2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Slike\aerodrom-icon3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Slike\aerodrom-icon4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Slike\default-let-icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Slike\europe-fin1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Slike\let-icon1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

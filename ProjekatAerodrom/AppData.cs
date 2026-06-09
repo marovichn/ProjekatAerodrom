@@ -38,7 +38,7 @@ namespace ProjekatAerodrom
                     foreach (Let l in ListaLetova)
                     {
                        
-                        string linija = $"{l.BrojLeta},{l.AerodromPolaska},{l.AerodromOdredista},{l.Aviokompanija},{l.VremePolaska},{l.VremeDolaska},{l.Status},{l.Ikonica}";
+                        string linija = $"{l.BrojLeta},{l.Polazak},{l.Odrediste},{l.Kompanija},{l.VremePolaska},{l.VremeDolaska},{l.Status},{l.Ikonica}";
                         sw.WriteLine(linija);
                     }
                 }
@@ -98,9 +98,9 @@ namespace ProjekatAerodrom
 
                         Let l = new Let();
                         l.BrojLeta = delovi[0];
-                        l.AerodromPolaska = delovi[1];
-                        l.AerodromOdredista = delovi[2];
-                        l.Aviokompanija = delovi[3];
+                        l.Polazak = delovi[1];
+                        l.Odrediste = delovi[2];
+                        l.Kompanija = delovi[3];
                         l.VremePolaska = delovi[4];
                         l.VremeDolaska = delovi[5];
                         l.Status = delovi[6];
