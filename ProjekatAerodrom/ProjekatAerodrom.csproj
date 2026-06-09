@@ -9,13 +9,50 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Slike\aerodrom-default-icon.png" />
+    <None Remove="Slike\aerodrom-icon1.png" />
+    <None Remove="Slike\aerodrom-icon2.png" />
+    <None Remove="Slike\aerodrom-icon3.png" />
+    <None Remove="Slike\aerodrom-icon4.png" />
+    <None Remove="Slike\default-let-icon.png" />
     <None Remove="Slike\europe-fin1.png" />
+    <None Remove="Slike\let-icon1.png" />
+    <None Remove="Slike\let-icon2.png" />
+    <None Remove="Slike\let-icon3.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Slike\aerodrom-default-icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Slike\aerodrom-icon1.png" />
+    <Resource Include="Slike\aerodrom-icon2.png" />
+    <Resource Include="Slike\aerodrom-icon3.png" />
+    <Resource Include="Slike\aerodrom-icon4.png" />
+    <Resource Include="Slike\default-let-icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Slike\europe-fin1.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Slike\let-icon1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Slike\let-icon2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Slike\let-icon3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Podaci\aerodromi.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Podaci\letovi.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

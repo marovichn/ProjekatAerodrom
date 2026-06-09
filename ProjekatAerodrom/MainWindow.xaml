@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjekatAerodrom"
         mc:Ignorable="d"
-        Title="Najbolji projekat ikad" Height="650" Width="1000"
+        Title="Najbolji projekat ikad" Height="1000" Width="1600"
         Background="#050505">
 
     <Window.Resources>
@@ -331,7 +331,7 @@
                 </TabControl>
             </TabItem>
 
-            <TabItem Header="Aerodromi i mapa">
+            <TabItem Header="Aerodromi i mapa" Height="27" VerticalAlignment="Top">
                 <Grid Margin="15">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
@@ -340,33 +340,91 @@
 
                     <Grid Grid.Column="0" Margin="0,0,20,0">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <DataGrid Grid.Row="0" Margin="0,0,0,15" FontSize="10">
+                        <Grid Grid.Row ="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="Dodaj aerodrom"   HorizontalAlignment="Left" Margin="0,0,10,10" Click="Dodaj_Aerodrom"/>
+                            <Button Grid.Column="1" Content="Izmeni selektovan aerodrom"   HorizontalAlignment="Left" Margin="0,0,10,10" Click="Izmeni_Aerodrom"/>
+                            <Button Grid.Column="2" Content="Obrisi selektovan aerodrom"   HorizontalAlignment="Left" Margin="0,0,0,10" Click="Obrisi_Aerodrom"/>
+                        </Grid>
+                        <DataGrid x:Name="DGAerodromi"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False"
+                                  IsReadOnly="True"
+                                  Grid.Row="1"
+                                  Margin="0,0,0,15"
+                                  FontSize="10"
+                                  SelectionChanged="DGAerodromi_SelectionChanged">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="0.6*"/>
+                                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="0.6*"/>
                                 <DataGridTextColumn Header="Naziv" Binding="{Binding Naziv}" Width="1.5*"/>
                                 <DataGridTextColumn Header="Grad" Binding="{Binding Grad}" Width="1*"/>
                                 <DataGridTextColumn Header="Drzava" Binding="{Binding Drzava}" Width="1*"/>
+                                <DataGridTemplateColumn  Width="35" >
+
+                                    <DataGridTemplateColumn.Header>
+                                        <Image Source="Slike/aerodrom-default-icon.png" 
+                                                Width="16" 
+                                                Height="16" 
+                                                Margin="0,0,5,0" 
+                                                Stretch="Uniform"/>
+                                    </DataGridTemplateColumn.Header>
+
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding Ikonica}" Width="25" Height="25" Stretch="Uniform"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+
+                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
+                        
 
-                        <TextBlock Grid.Row="1" 
+                        <TextBlock Grid.Row="2" 
                                    Text="LETOVI SELEKTOVANOG AERODROMA" 
                                    Style="{StaticResource NeonText}"
                                    FontSize="12" 
                                    Margin="0,5,0,10"/>
 
-                        <DataGrid Grid.Row="2" FontSize="10">
+                        <DataGrid Grid.Row="3"
+                                  FontSize="10"
+                                  x:Name="DGSelektovaniLetovi">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Br. leta" Binding="{Binding BrojLeta}" Width="1*"/>
-                                <DataGridTextColumn Header="Odrediste" Binding="{Binding Odrediste}" Width="1.2*"/>
-                                <DataGridTextColumn Header="Kompanija" Binding="{Binding Kompanija}" Width="1.2*"/>
-                                <DataGridTextColumn Header="Polazak" Binding="{Binding Polazak}" Width="1*"/>
-                                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="0.9*"/>
+                                
+                                <DataGridTextColumn Header="Broj leta" Binding="{Binding BrojLeta}" Width="*"/>
+                                <DataGridTextColumn Header="Polazak" Binding="{Binding AerodromPolaska}" Width="*"/>
+                                <DataGridTextColumn Header="Odredište" Binding="{Binding AerodromOdredista}" Width="*"/>
+                                <DataGridTextColumn Header="Kompanija" Binding="{Binding Aviokompanija}" Width="*"/>
+                                <DataGridTextColumn Header="Vreme polaska" Binding="{Binding VremePolaska}" Width="*"/>
+                                <DataGridTextColumn Header="Vreme dolaska" Binding="{Binding VremeDolaska}" Width="*"/>
+                                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
+                                <DataGridTemplateColumn  Width="35" >
+
+                                    <DataGridTemplateColumn.Header>
+                                        <Image Source="Slike/default-let-icon.png" 
+                                                 Width="16" 
+                                                 Height="16" 
+                                                 Margin="0,0,5,0" 
+                                                 Stretch="Uniform"/>
+                                    </DataGridTemplateColumn.Header>
+
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding Ikonica}" Width="25" Height="25" Stretch="Uniform"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+
+                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>

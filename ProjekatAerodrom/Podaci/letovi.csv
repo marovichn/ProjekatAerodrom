@@ -1,0 +1,26 @@
+JU100,Nikola Tesla,John F. Kennedy,Air Serbia,07:20,11:30,Aktivan,Slike/default-let-icon.png
+JU101,John F. Kennedy,Nikola Tesla,Air Serbia,18:15,05:40,Aktivan,Slike/let-icon1.png
+JU500,Nikola Tesla,Sarajevo International,Air Serbia,14:10,14:55,Aktivan,Slike/let-icon2.png
+JU501,Sarajevo International,Nikola Tesla,Air Serbia,15:40,16:25,Odložen,Slike/let-icon3.png
+JU230,Nikola Tesla,Heathrow,Air Serbia,10:15,12:10,Aktivan,Slike/default-let-icon.png
+JU360,Nikola Tesla,Franjo Tudjman,Air Serbia,08:00,09:05,Aktivan,Slike/let-icon1.png
+LH1411,Nikola Tesla,Frankfurt,Lufthansa,06:15,08:15,Aktivan,Slike/let-icon2.png
+LH1412,Frankfurt,Nikola Tesla,Lufthansa,11:20,13:10,Otkazan,Slike/let-icon3.png
+BA887,Heathrow,Nikola Tesla,British Airways,13:45,17:30,Aktivan,Slike/default-let-icon.png
+BA225,Heathrow,John F. Kennedy,British Airways,14:05,17:00,Aktivan,Slike/let-icon1.png
+AF1661,Nikola Tesla,Charles de Gaulle,Air France,12:25,15:05,Aktivan,Slike/let-icon2.png
+AF012,Charles de Gaulle,John F. Kennedy,Air France,08:30,11:00,Aktivan,Slike/let-icon3.png
+KL1884,Nikola Tesla,Schiphol,KLM,06:40,09:10,Aktivan,Slike/default-let-icon.png
+KL641,Schiphol,John F. Kennedy,KLM,13:15,15:45,Aktivan,Slike/let-icon1.png
+EK140,Franjo Tudjman,Dubai International,Emirates,15:15,23:15,Aktivan,Slike/let-icon2.png
+EK001,Dubai International,Heathrow,Emirates,07:45,12:25,Aktivan,Slike/let-icon3.png
+EK318,Dubai International,Haneda,Emirates,02:50,17:25,Odložen,Slike/default-let-icon.png
+TK1082,Nikola Tesla,Ataturk,Turkish Airlines,20:20,23:05,Aktivan,Slike/let-icon1.png
+TK1081,Ataturk,Nikola Tesla,Turkish Airlines,07:10,07:55,Aktivan,Slike/let-icon2.png
+TK432,Sarajevo International,Ataturk,Turkish Airlines,11:35,14:25,Aktivan,Slike/let-icon3.png
+AZ590,Fiumicino,Nikola Tesla,ITA Airways,09:20,11:00,Aktivan,Slike/default-let-icon.png
+AZ608,Fiumicino,John F. Kennedy,ITA Airways,10:40,14:55,Otkazan,Slike/let-icon1.png
+OU342,Franjo Tudjman,Sarajevo International,Croatia Airlines,21:15,22:00,Aktivan,Slike/let-icon2.png
+OU440,Franjo Tudjman,Charles de Gaulle,Croatia Airlines,09:00,11:05,Aktivan,Slike/let-icon3.png
+NH204,Frankfurt,Haneda,ANA,12:10,06:45,Aktivan,Slike/default-let-icon.png
+JL416,Charles de Gaulle,Haneda,Japan Airlines,21:55,16:30,Aktivan,Slike/let-icon1.png

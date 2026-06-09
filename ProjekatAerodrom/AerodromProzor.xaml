@@ -1,0 +1,99 @@
+﻿<Window x:Class="ProjekatAerodrom.AerodromProzor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Upravljanje Aerodromom" Height="400" Width="450"
+        Background="#050505" WindowStartupLocation="CenterOwner">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="#101010"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#3300FFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="CaretBrush" Value="#00FFFF"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#00FFFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#0A0A0A"/>
+            <Setter Property="Foreground" Value="#00FFFF"/>
+            <Setter Property="BorderBrush" Value="#3300FFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="btnBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#00FFFF"/>
+                                <Setter Property="Foreground" Value="#050505"/>
+                                <Setter TargetName="btnBorder" Property="BorderBrush" Value="#00FFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="#CCCCCC"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="lblNaslov" Text="DODAJ NOVI AERODROM" Foreground="#00FFFF" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2.5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Jedinstveni ID:" Grid.Row="0" Grid.Column="0"/>
+            <TextBox x:Name="txtID" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
+
+            <TextBlock Text="Naziv aerodroma:" Grid.Row="1" Grid.Column="0"/>
+            <TextBox x:Name="txtNaziv" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+
+            <TextBlock Text="Grad:" Grid.Row="2" Grid.Column="0"/>
+            <TextBox x:Name="txtGrad" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
+
+            <TextBlock Text="Država:" Grid.Row="3" Grid.Column="0"/>
+            <TextBox x:Name="txtDrzava" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"/>
+
+            <TextBlock Text="Ikonica/Logo:" Grid.Row="4" Grid.Column="0"/>
+            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBox x:Name="txtIkonicaPutanja" Width="170" IsReadOnly="True" Margin="0,0,10,0"/>
+                <Button Content="Izaberi..." Click="BtnIzaberiIkonicu_Click" Width="80"/>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button x:Name="btnPromeniSacuvaj" Content="Sačuvaj" Click="BtnSacuvaj_Click"  Margin="0,0,10,0"/>
+            <Button   Content="Otkaži" Click="BtnOtkazi_Click" Width="70"/>
+        </StackPanel>
+    </Grid>
+</Window>
