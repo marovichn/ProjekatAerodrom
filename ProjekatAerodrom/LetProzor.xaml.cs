@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,12 +12,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace ProjekatAerodrom
 {
-    /// <summary>
-    /// Interaction logic for LetProzor.xaml
-    /// </summary>
+   
     public partial class LetProzor : Window
     {
 
@@ -61,7 +63,7 @@ namespace ProjekatAerodrom
                 string.IsNullOrWhiteSpace(txtOdrediste.Text) ||
                 string.IsNullOrWhiteSpace(txtKompanija.Text) ||
                 string.IsNullOrWhiteSpace(txtVremePolaska.Text) ||
-                string.IsNullOrWhiteSpace(txtVremeDolaska.Text)) //ili nije nista selektovano, aktivan, otkazan..
+                string.IsNullOrWhiteSpace(txtVremeDolaska.Text)) //ili nije nista selektovano, aktivan, otkazan.. to fali...
             {
                 MessageBox.Show("Sva tekstualna polja moraju biti popunjena!", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -79,6 +81,7 @@ namespace ProjekatAerodrom
                 return;
             }
 
+            string putanjaIkonice = string.IsNullOrWhiteSpace(txtIkonica.Text) ? "Slike/default.png" : txtIkonica.Text;
 
             if (letZaIzmenu != null)
             {
@@ -88,6 +91,7 @@ namespace ProjekatAerodrom
                 letZaIzmenu.Kompanija = txtKompanija.Text;
                 letZaIzmenu.VremePolaska = txtVremePolaska.Text;
                 letZaIzmenu.VremeDolaska = txtVremeDolaska.Text;
+                letZaIzmenu.Ikonica = putanjaIkonice;
 
                 MessageBox.Show("Promene su uspešno sačuvane!", "Uspeh", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -95,7 +99,7 @@ namespace ProjekatAerodrom
             {
 
                 //FALI MI LOGIKA ZA STATUSS
-                Let novi = new Let(txtBrojLeta.Text, txtPolazak.Text, txtOdrediste.Text, txtKompanija.Text, txtVremePolaska.Text, txtVremeDolaska.Text, "SVI");
+                Let novi = new Let(txtBrojLeta.Text, txtPolazak.Text, txtOdrediste.Text, txtKompanija.Text, txtVremePolaska.Text, txtVremeDolaska.Text, "SVI", txtIkonica.Text);
                 AppData.ListaLetova.Add(novi);
                 MessageBox.Show("Let je uspešno dodat!", "Uspeh", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -115,20 +119,53 @@ namespace ProjekatAerodrom
              * pa ako je polazno vreme vece od dolaznog to ne moze
             */
             string[] deloviP = polazno.Split(':');
-            int vremeP = Int32.Parse(deloviP[0]) * 1000 + Int32.Parse(deloviP[1]);
+
+            bool samoBrojeviP1 = deloviP[0].All(char.IsDigit);
+            bool samoBrojeviP2 = deloviP[1].All(char.IsDigit);
 
             string[] deloviD = dolazno.Split(':');
-            int vremeD = Int32.Parse(deloviD[0]) * 1000 + Int32.Parse(deloviD[1]);
 
-            if (vremeP > vremeD)
+            bool samoBrojeviD1 = deloviD[0].All(char.IsDigit);
+            bool samoBrojeviD2 = deloviD[1].All(char.IsDigit);
+
+            if (samoBrojeviP1 && samoBrojeviP2 && samoBrojeviD1 && samoBrojeviD2)
             {
-                MessageBox.Show("Nije ispravno uneto vreme!");
-                vreme = false;
+                int vremeP = Int32.Parse(deloviP[0]) * 1000 + Int32.Parse(deloviP[1]);
+                int vremeD = Int32.Parse(deloviD[0]) * 1000 + Int32.Parse(deloviD[1]);
+
+                if (vremeP > vremeD)
+                {
+                    //MessageBox.Show("Nije ispravno uneto vreme!");
+                    vreme = false;
+                }
+                else
+                    vreme = true;
             }
             else
-                vreme = true;
+            { MessageBox.Show("Nije ispravno uneto vreme! Primer ispravnog unosa je 13:25"); }
 
             return vreme;
+        }
+
+        private void btnIzaberi_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dijalog = new OpenFileDialog();
+            dijalog.Filter = "Slike (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg";
+            if (dijalog.ShowDialog() == true)
+            {
+                string folderZaSlike = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Slike");
+                if (!Directory.Exists(folderZaSlike)) Directory.CreateDirectory(folderZaSlike);
+
+                string imeFajla = Path.GetFileName(dijalog.FileName);
+                string konacnaPutanja = Path.Combine(folderZaSlike, imeFajla);
+
+                try
+                {
+                    if (!File.Exists(konacnaPutanja)) File.Copy(dijalog.FileName, konacnaPutanja);
+                    txtIkonica.Text = "Slike/" + imeFajla;
+                }
+                catch (Exception ex) { MessageBox.Show("Greška: " + ex.Message); }
+            }
         }
     }
 }

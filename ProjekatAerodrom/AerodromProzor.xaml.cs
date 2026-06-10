@@ -8,17 +8,17 @@ namespace ProjekatAerodrom
 {
     public partial class AerodromProzor : Window
     {
-        
+
         private Aerodrom aerodromZaIzmenu = null;
 
         public AerodromProzor(Aerodrom aerodrom = null)
         {
             InitializeComponent();
 
-            
+
             this.aerodromZaIzmenu = aerodrom;
 
-            
+
             if (aerodromZaIzmenu != null)
             {
                 lblNaslov.Text = "IZMENI AERODROM";
@@ -35,7 +35,7 @@ namespace ProjekatAerodrom
             }
         }
 
-      
+
         private void BtnSacuvaj_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtNaziv.Text) ||
@@ -48,21 +48,21 @@ namespace ProjekatAerodrom
 
             string putanjaIkonice = string.IsNullOrWhiteSpace(txtIkonicaPutanja.Text) ? "Slike/default.png" : txtIkonicaPutanja.Text;
 
-            
+
             if (aerodromZaIzmenu != null)
             {
-              
+
                 aerodromZaIzmenu.Naziv = txtNaziv.Text;
                 aerodromZaIzmenu.Grad = txtGrad.Text;
                 aerodromZaIzmenu.Drzava = txtDrzava.Text;
                 aerodromZaIzmenu.Ikonica = putanjaIkonice;
-                
+
 
                 MessageBox.Show("Promene su uspešno sačuvane!", "Uspeh", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                
+
                 if (!int.TryParse(txtID.Text, out int unetiId))
                 {
                     MessageBox.Show("ID aerodroma mora biti broj!", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -80,7 +80,7 @@ namespace ProjekatAerodrom
                 MessageBox.Show("Aerodrom je uspešno dodat!", "Uspeh", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
-           
+
             AppData.SacuvajSve();
             this.Close();
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Net.NetworkInformation;
 
 namespace ProjekatAerodrom
 {
@@ -31,7 +32,7 @@ namespace ProjekatAerodrom
 
         }
 
-        public Let(string brojLeta, string polazak, string odrediste, string kompanija, string vremePolaska, string vremeDolaska, string status)
+        public Let(string brojLeta, string polazak, string odrediste, string kompanija, string vremePolaska, string vremeDolaska, string status, string ikonica)
         {
             this.brojLeta = brojLeta;
             this.polazak = polazak;
@@ -40,6 +41,7 @@ namespace ProjekatAerodrom
             this.vremePolaska = vremePolaska;
             this.vremeDolaska = vremeDolaska;
             this.status = status;
+            this.ikonica = ikonica;
         }
 
         public string BrojLeta
@@ -125,11 +127,7 @@ namespace ProjekatAerodrom
             get { return status; }
             set
             {
-                if (value != status)
-                {
-                    status = value;
-                    OnPropertyChanged("Status");
-                }
+                status = value;
             }
         }
 

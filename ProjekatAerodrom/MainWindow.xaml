@@ -156,9 +156,9 @@
                                     </ControlTemplate>
                                 </ToggleButton.Template>
                             </ToggleButton>
-                            
+
                             <ContentPresenter Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="8,3,30,3" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                            
+
                             <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
                                 <Grid Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                     <Border x:Name="DropDownBorder" Background="#0A0A0A" BorderThickness="1" BorderBrush="#00FFFF"/>
@@ -209,7 +209,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="Foreground" Value="#CCCCCC"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -227,7 +227,11 @@
     </Window.Resources>
 
     <Grid>
-        <TabControl Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="113*"/>
+            <RowDefinition Height="329*"/>
+        </Grid.RowDefinitions>
+        <TabControl Margin="10,10,10,10" Grid.RowSpan="2">
             <!--Anika-->
             <TabItem Header="Letovi">
                 <Grid Margin="10">
@@ -274,7 +278,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            
+
             <!--Nikola-->
             <TabItem Header="Aerodromi i mapa" Height="27" VerticalAlignment="Top">
                 <Grid Margin="15">
@@ -301,7 +305,7 @@
                             <Button Grid.Column="1" Content="Izmeni selektovan aerodrom"   HorizontalAlignment="Left" Margin="0,0,10,10" Click="Izmeni_Aerodrom"/>
                             <Button Grid.Column="2" Content="Obrisi selektovan aerodrom"   HorizontalAlignment="Left" Margin="0,0,0,10" Click="Obrisi_Aerodrom"/>
                         </Grid>
-                        
+
                         <DataGrid x:Name="DGAerodromi"
                                   AutoGenerateColumns="False"
                                   CanUserAddRows="False"
@@ -316,7 +320,7 @@
                                 <Style TargetType="DataGridRow">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding IsPlaced}" Value="True">
-                                          
+
                                             <Setter Property="Background" Value="#1A1A1A"/>
                                             <Setter Property="Foreground" Value="#666666"/>
                                             <Setter Property="Opacity" Value="0.5"/>
@@ -325,7 +329,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </DataGrid.RowStyle>
-                            
+
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="0.6*"/>
                                 <DataGridTextColumn Header="Naziv" Binding="{Binding Naziv}" Width="1.5*"/>
@@ -350,7 +354,7 @@
                                 </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
-                        
+
 
                         <TextBlock Grid.Row="2" 
                                    Text="LETOVI SELEKTOVANOG AERODROMA" 
@@ -367,7 +371,7 @@
                                 <Style TargetType="DataGridRow">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding IsPlaced}" Value="True">
-                                           
+
                                             <Setter Property="Background" Value="#1A1A1A"/>
                                             <Setter Property="Foreground" Value="#666666"/>
                                             <Setter Property="Opacity" Value="0.5"/>
@@ -377,7 +381,7 @@
                                 </Style>
                             </DataGrid.RowStyle>
                             <DataGrid.Columns>
-                                
+
                                 <DataGridTextColumn Header="Broj leta" Binding="{Binding BrojLeta}" Width="*"/>
                                 <DataGridTextColumn Header="Polazak" Binding="{Binding Polazak}" Width="*"/>
                                 <DataGridTextColumn Header="Odredište" Binding="{Binding Odrediste}" Width="*"/>
@@ -433,7 +437,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            
+
         </TabControl>
     </Grid>
 </Window>

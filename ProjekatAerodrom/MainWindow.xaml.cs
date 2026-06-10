@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -91,7 +92,24 @@ namespace ProjekatAerodrom
 
         private void ExportCSV_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                using (StreamWriter sw = new StreamWriter("letovi.csv"))
+                {
+                    sw.WriteLine("BrojLeta,Polazak,Odrediste,Kompanija,VremePolaska,VremeDolaska,Status");
 
+                    foreach (Let l in AppData.ListaLetova)
+                    {
+                        sw.WriteLine($"{l.BrojLeta},{l.Polazak},{l.Odrediste},{l.Kompanija},{l.VremePolaska},{l.VremeDolaska},{l.Status}");
+                    }
+                }
+
+                MessageBox.Show("Export uspešan!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
