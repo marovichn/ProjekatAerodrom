@@ -7,7 +7,8 @@
         xmlns:local="clr-namespace:ProjekatAerodrom"
         mc:Ignorable="d"
         Title="DODAJ LET" Height="450" Width="600"
-        Background="#050505" WindowStartupLocation="CenterOwner">
+        Background="#050505" WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
 
 
     <Window.Resources>
@@ -177,12 +178,18 @@
         <TextBlock Text="Vreme dolaska:" Grid.Row="5" Grid.Column="0" Margin="5"/>
         <TextBox x:Name="txtVremeDolaska" Grid.Row="5" Grid.Column="1" Margin="10 5"/>
 
-        <TextBlock Text="Status:" Grid.Row="6" Grid.Column="0" Margin="5"/>
-        <ComboBox x:Name="cbStatusDodaj" Grid.Row="6" Grid.Column="1" Margin="10 5">
-            <ComboBoxItem Content="Aktivan"/>
-            <ComboBoxItem Content="Otkazan"/>
-            <ComboBoxItem Content="Odlozen"/>
-        </ComboBox>
+        <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="60 0 0 0">
+            <TextBlock Text="Status:" Grid.Row="6" Grid.Column="0" Margin="5"/>
+            <ComboBox x:Name="cbStatusDodaj" Grid.Row="6" Grid.Column="1" Margin="25 5" Width="100">
+                <ComboBoxItem Content="Aktivan"/>
+                <ComboBoxItem Content="Otkazan"/>
+                <ComboBoxItem Content="Odložen"/>
+            </ComboBox>
+            <TextBlock Text="Ikonica: " Margin="5"></TextBlock>
+            <TextBox x:Name="txtIkonica" Width="100" Margin="5" IsReadOnly="True"></TextBox>
+            <Button x:Name="btnIzaberi" Click="btnIzaberi_Click" Margin="5">Izaberi</Button>
+        </StackPanel>
+
 
         <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
             <Button x:Name ="btnSacuvaj" Click="btnSacuvaj_Click" Content="Sačuvaj" Width="100" Margin="0 0 5 0"/>

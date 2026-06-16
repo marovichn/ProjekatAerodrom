@@ -26,7 +26,7 @@ namespace ProjekatAerodrom
         }
 
         //ANIKA TAB 1
-        //KOD MENE ISTO TREBA I IKONICA DA SE OBEZBEDI DA SE MENJA, TO SAM TEK SAD VIDELA
+
         private void Dodaj_Click(object sender, RoutedEventArgs e)
         {
             LetProzor prozor = new LetProzor();
@@ -41,6 +41,8 @@ namespace ProjekatAerodrom
                 LetProzor prozor = new LetProzor(selektovaniLetovi);
                 prozor.Owner = this;
                 prozor.ShowDialog();
+
+                DGletovi.Items.Refresh();
             }
             else
             {
@@ -76,9 +78,21 @@ namespace ProjekatAerodrom
                         }
                     }
 
+                    //prilikom brisanja leta, uklanjamo i njegovu ikonicu sa mape
+                    var ikonicaZaUklanjanje = MapaCanvas.Children
+                    .OfType<Image>()
+                    .FirstOrDefault(img => img.Tag == selektovaniLet);
+
+                    if (ikonicaZaUklanjanje != null)
+                    {
+                        MapaCanvas.Children.Remove(ikonicaZaUklanjanje);
+                    }
+
                     AppData.ListaLetova.Remove(selektovaniLet);
                     AppData.SacuvajSve();
                     DGSelektovaniLetovi.ItemsSource = null;
+                    
+                    DGletovi.Items.Refresh();
 
                     MessageBox.Show("Let je uspešno obrisan", "Uspeh", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -211,10 +225,19 @@ namespace ProjekatAerodrom
                         }
                     }
 
+                    //kada brisemo aerodrom, uklanjamo i njegovu ikonicu sa mape
+                    var ikonicaZaUklanjanje = MapaCanvas.Children.OfType<Image>().FirstOrDefault(img => img.Tag == selektovaniAerodrom);
+
+                    if (ikonicaZaUklanjanje != null)
+                    {
+                        MapaCanvas.Children.Remove(ikonicaZaUklanjanje);
+                    }
+
                     AppData.ListaAerodroma.Remove(selektovaniAerodrom);
                     AppData.SacuvajSve();
                     DGSelektovaniLetovi.ItemsSource = null;
 
+                    DGletovi.Items.Refresh();
                     MessageBox.Show("Aerodrom je uspešno obrisan, a njegovi letovi su neraspoređeni!",
                                     "Uspeh", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -395,6 +418,7 @@ namespace ProjekatAerodrom
                 AppData.ListaAerodroma.Remove(aerodrom);
                 DGAerodromi.Items.Refresh();
                 DGSelektovaniLetovi.ItemsSource = null;
+                DGletovi.Items.Refresh();
             }
             else if (kliknutaIkonica.Tag is Let let)
             {

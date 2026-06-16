@@ -16,7 +16,9 @@ using Path = System.IO.Path;
 
 namespace ProjekatAerodrom
 {
-   
+    /// <summary>
+    /// Interaction logic for LetProzor.xaml
+    /// </summary>
     public partial class LetProzor : Window
     {
 
@@ -41,7 +43,8 @@ namespace ProjekatAerodrom
                 txtKompanija.Text = letZaIzmenu.Kompanija;
                 txtVremePolaska.Text = letZaIzmenu.VremePolaska;
                 txtVremeDolaska.Text = letZaIzmenu.VremeDolaska;
-
+                cbStatusDodaj.Text = letZaIzmenu.Status;
+                txtIkonica.Text = letZaIzmenu.Ikonica;
             }
         }
 
@@ -63,7 +66,8 @@ namespace ProjekatAerodrom
                 string.IsNullOrWhiteSpace(txtOdrediste.Text) ||
                 string.IsNullOrWhiteSpace(txtKompanija.Text) ||
                 string.IsNullOrWhiteSpace(txtVremePolaska.Text) ||
-                string.IsNullOrWhiteSpace(txtVremeDolaska.Text)) //ili nije nista selektovano, aktivan, otkazan.. to fali...
+                string.IsNullOrWhiteSpace(txtVremeDolaska.Text) ||
+                cbStatusDodaj.SelectedIndex == -1)
             {
                 MessageBox.Show("Sva tekstualna polja moraju biti popunjena!", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -75,13 +79,16 @@ namespace ProjekatAerodrom
                 return;
             }
 
-            if (AppData.ListaLetova.Any(a => a.BrojLeta == txtBrojLeta.Text))
+            if (letZaIzmenu == null && AppData.ListaLetova.Any(a => a.BrojLeta == txtBrojLeta.Text))
             {
                 MessageBox.Show("Let sa ovim brojem već postoji!", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            string putanjaIkonice = string.IsNullOrWhiteSpace(txtIkonica.Text) ? "Slike/default.png" : txtIkonica.Text;
+            string putanjaIkonice = string.IsNullOrWhiteSpace(txtIkonica.Text) ? "Slike/default-let-icon.png" : txtIkonica.Text;
+
+            ComboBoxItem selektovaniItem = (ComboBoxItem)cbStatusDodaj.SelectedItem;
+            string statusLeta = selektovaniItem.Content.ToString();
 
             if (letZaIzmenu != null)
             {
@@ -91,15 +98,14 @@ namespace ProjekatAerodrom
                 letZaIzmenu.Kompanija = txtKompanija.Text;
                 letZaIzmenu.VremePolaska = txtVremePolaska.Text;
                 letZaIzmenu.VremeDolaska = txtVremeDolaska.Text;
+                letZaIzmenu.Status = statusLeta;
                 letZaIzmenu.Ikonica = putanjaIkonice;
 
                 MessageBox.Show("Promene su uspešno sačuvane!", "Uspeh", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-
-                //FALI MI LOGIKA ZA STATUSS
-                Let novi = new Let(txtBrojLeta.Text, txtPolazak.Text, txtOdrediste.Text, txtKompanija.Text, txtVremePolaska.Text, txtVremeDolaska.Text, "SVI", txtIkonica.Text);
+                Let novi = new Let(txtBrojLeta.Text, txtPolazak.Text, txtOdrediste.Text, txtKompanija.Text, txtVremePolaska.Text, txtVremeDolaska.Text, statusLeta, putanjaIkonice);
                 AppData.ListaLetova.Add(novi);
                 MessageBox.Show("Let je uspešno dodat!", "Uspeh", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -118,31 +124,56 @@ namespace ProjekatAerodrom
              * npr ako je vreme 13:35, pamticu ga kao 1335 i 1455
              * pa ako je polazno vreme vece od dolaznog to ne moze
             */
+
+            if (!polazno.Contains(":") || !dolazno.Contains(":"))
+            {
+                MessageBox.Show("Nije ispravno uneto vreme! Format mora biti HH:mm (npr. 13:25)");
+                return false;
+            }
+
             string[] deloviP = polazno.Split(':');
-
-            bool samoBrojeviP1 = deloviP[0].All(char.IsDigit);
-            bool samoBrojeviP2 = deloviP[1].All(char.IsDigit);
-
             string[] deloviD = dolazno.Split(':');
 
-            bool samoBrojeviD1 = deloviD[0].All(char.IsDigit);
-            bool samoBrojeviD2 = deloviD[1].All(char.IsDigit);
-
-            if (samoBrojeviP1 && samoBrojeviP2 && samoBrojeviD1 && samoBrojeviD2)
+            if (deloviP.Length < 2 || deloviD.Length < 2 ||
+                string.IsNullOrEmpty(deloviP[0]) || string.IsNullOrEmpty(deloviP[1]) ||
+                string.IsNullOrEmpty(deloviD[0]) || string.IsNullOrEmpty(deloviD[1]))
             {
-                int vremeP = Int32.Parse(deloviP[0]) * 1000 + Int32.Parse(deloviP[1]);
-                int vremeD = Int32.Parse(deloviD[0]) * 1000 + Int32.Parse(deloviD[1]);
-
-                if (vremeP > vremeD)
-                {
-                    //MessageBox.Show("Nije ispravno uneto vreme!");
-                    vreme = false;
-                }
-                else
-                    vreme = true;
+                MessageBox.Show("Nije ispravno uneto vreme! Sva polja (sati i minuti) moraju biti popunjena.", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
             }
             else
-            { MessageBox.Show("Nije ispravno uneto vreme! Primer ispravnog unosa je 13:25"); }
+            {
+                bool samoBrojeviP1 = deloviP[0].All(char.IsDigit);
+                bool samoBrojeviP2 = deloviP[1].All(char.IsDigit);
+
+                bool samoBrojeviD1 = deloviD[0].All(char.IsDigit);
+                bool samoBrojeviD2 = deloviD[1].All(char.IsDigit);
+
+                if (samoBrojeviP1 && samoBrojeviP2 && samoBrojeviD1 && samoBrojeviD2)
+                {
+                    if (Int32.Parse(deloviP[0]) >= 24 || Int32.Parse(deloviP[1]) >= 60 ||
+                        Int32.Parse(deloviP[0]) < 0 || Int32.Parse(deloviP[1]) < 0 ||
+                        Int32.Parse(deloviD[0]) >= 24 || Int32.Parse(deloviD[1]) >= 60 ||
+                        Int32.Parse(deloviD[0]) < 0 || Int32.Parse(deloviD[1]) < 0)
+                        vreme = false;
+                    else
+                    {
+                        int vremeP = Int32.Parse(deloviP[0]) * 1000 + Int32.Parse(deloviP[1]);
+                        int vremeD = Int32.Parse(deloviD[0]) * 1000 + Int32.Parse(deloviD[1]);
+
+                        if (vremeP > vremeD)
+                        {
+                            //MessageBox.Show("Nije ispravno uneto vreme!");
+                            vreme = false;
+                        }
+                        else
+                            vreme = true;
+                    }
+                }
+                else
+                { MessageBox.Show("Nije ispravno uneto vreme! Primer ispravnog unosa je 13:25"); }
+
+            }
 
             return vreme;
         }

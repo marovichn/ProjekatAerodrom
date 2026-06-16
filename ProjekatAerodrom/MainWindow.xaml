@@ -9,6 +9,8 @@
         Background="#050505">
 
     <Window.Resources>
+        <local:PutanjaKonverter x:Key="MojKonverter" />
+
         <Style TargetType="{x:Type TabControl}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="#00FFFF"/>
@@ -225,6 +227,7 @@
             </Setter>
         </Style>
     </Window.Resources>
+    
 
     <Grid>
         <Grid.RowDefinitions>
@@ -262,7 +265,7 @@
                             <DataGridTemplateColumn Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding Ikonica}" Width="25" Height="25" Stretch="Uniform"/>
+                                        <Image Source="{Binding Ikonica, Converter={StaticResource MojKonverter}}" Width="25" Height="25" Stretch="Uniform"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -347,7 +350,7 @@
 
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding Ikonica}" Width="25" Height="25" Stretch="Uniform"/>
+                                            <Image Source="{Binding Ikonica, Converter={StaticResource MojKonverter}}" Width="25" Height="25" Stretch="Uniform"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
 

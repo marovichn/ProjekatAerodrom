@@ -46,7 +46,7 @@ namespace ProjekatAerodrom
                 return;
             }
 
-            string putanjaIkonice = string.IsNullOrWhiteSpace(txtIkonicaPutanja.Text) ? "Slike/default.png" : txtIkonicaPutanja.Text;
+            string putanjaIkonice = string.IsNullOrWhiteSpace(txtIkonicaPutanja.Text) ? "Slike/aerodrom-default-icon.png" : txtIkonicaPutanja.Text;
 
 
             if (aerodromZaIzmenu != null)
