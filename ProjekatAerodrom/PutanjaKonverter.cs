@@ -14,14 +14,14 @@ namespace ProjekatAerodrom
                 // Normalizujemo kose crte da WPF ne pravi problem
                 putanja = putanja.Replace("\\", "/");
 
-                // --- 1. SITUACIJA: Slika je naknadno dodata i postoji na disku ---
+                // Slika je naknadno dodata i postoji na disku 
                 string punaPutanjaNaDisku = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, putanja);
                 if (File.Exists(punaPutanjaNaDisku))
                 {
                     return new BitmapImage(new Uri(punaPutanjaNaDisku, UriKind.Absolute));
                 }
 
-                // --- 2. SITUACIJA: Slika je ugrađeni "Resource" unutar .exe fajla ---
+                // Slika je ugrađeni "Resource" 
                 try
                 {
                     // Slanje "pack://" prefiksa govori WPF-u da traži sliku unutar svojih resursa

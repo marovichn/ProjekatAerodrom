@@ -105,7 +105,7 @@ namespace ProjekatAerodrom
                 return;
             }
 
-            string putanjaIkonice = string.IsNullOrWhiteSpace(txtIkonica.Text) ? "Slike/default.png" : txtIkonica.Text;
+            string putanjaIkonice = string.IsNullOrWhiteSpace(txtIkonica.Text) ? "Slike/default-let-icon.png" : txtIkonica.Text;
 
             ComboBoxItem selektovaniItem = (ComboBoxItem)cbStatusDodaj.SelectedItem;
             string statusLeta = selektovaniItem.Content.ToString();
@@ -128,7 +128,7 @@ namespace ProjekatAerodrom
             }
             else
             {
-                Let novi = new Let(txtBrojLeta.Text, txtPolazak.Text, txtOdrediste.Text, txtKompanija.Text, txtVremePolaska.Text, datumP, txtVremeDolaska.Text, datumD, statusLeta, txtIkonica.Text);
+                Let novi = new Let(txtBrojLeta.Text, txtPolazak.Text, txtOdrediste.Text, txtKompanija.Text, txtVremePolaska.Text, datumP, txtVremeDolaska.Text, datumD, statusLeta, putanjaIkonice);
                 AppData.ListaLetova.Add(novi);
                 MessageBox.Show("Let je uspešno dodat!", "Uspeh", MessageBoxButton.OK, MessageBoxImage.Information);
             }

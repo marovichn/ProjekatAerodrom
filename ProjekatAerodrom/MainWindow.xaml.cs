@@ -1,22 +1,26 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace ProjekatAerodrom
 {
     
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
@@ -114,7 +118,7 @@ namespace ProjekatAerodrom
             }
         }
 
-        /*
+        
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             ObservableCollection<Let> pretrazenaDG = new ObservableCollection<Let>();
@@ -137,50 +141,37 @@ namespace ProjekatAerodrom
 
             DGletovi.ItemsSource = pretrazenaDG;
         }
-        */
 
-        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        private void filtrirajLetove()
         {
-            FiltrirajLetove();
+            string izabraniStatus = "";
+            if (cbStatus.SelectedItem is ComboBoxItem selektovanaStavka)
+            {
+                izabraniStatus = selektovanaStavka.Content.ToString();
+            }
+
+            ObservableCollection<Let> filtriranaLista = new ObservableCollection<Let>();
+
+            foreach (Let l in AppData.ListaLetova)
+            {
+                bool statusOdgovara = izabraniStatus == "Svi" ||
+                                      string.IsNullOrEmpty(izabraniStatus) ||
+                                      l.Status.Equals(izabraniStatus, StringComparison.OrdinalIgnoreCase);
+
+                //Ako let ispunjava uslov dodajemo ga
+                if (statusOdgovara)
+                {
+                    filtriranaLista.Add(l);
+                }
+            }
+
+            // Osvezavamo DataGrid sa filtriranim podacima
+            DGletovi.ItemsSource = filtriranaLista;
         }
 
         private void cbStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            FiltrirajLetove();
-        }
-
-        private void FiltrirajLetove()
-        {
-            
-            if (txtSearch == null || cbStatus == null || DGletovi == null) return;
-
-            string tekstZaPretragu = txtSearch.Text.ToLower().Trim();
-
-            
-            string selektovaniStatus = (cbStatus.SelectedItem as ComboBoxItem)?.Content.ToString();
-
-            ObservableCollection<Let> filtriraniLetovi = new ObservableCollection<Let>();
-
-            foreach (Let l in AppData.ListaLetova)
-            {
-                // tekst
-                bool tekstSePoklapa = string.IsNullOrEmpty(tekstZaPretragu) ||
-                                      l.BrojLeta.ToLower().StartsWith(tekstZaPretragu) ||
-                                      l.Kompanija.ToLower().StartsWith(tekstZaPretragu);
-
-                //  status
-                bool statusSePoklapa = string.IsNullOrEmpty(selektovaniStatus) ||
-                                       selektovaniStatus == "Svi" ||
-                                       l.Status == selektovaniStatus;
-
-                // prikaz
-                if (tekstSePoklapa && statusSePoklapa)
-                {
-                    filtriraniLetovi.Add(l);
-                }
-            }
-
-            DGletovi.ItemsSource = filtriraniLetovi;
+            filtrirajLetove();
         }
 
 
@@ -474,6 +465,7 @@ namespace ProjekatAerodrom
             MessageBox.Show("Entitet je uspešno obrisan!", "Uspeh", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-      
+
+
     }
 }

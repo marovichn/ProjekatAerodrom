@@ -82,7 +82,7 @@ namespace ProjekatAerodrom
                 {
                     string[] linije = File.ReadAllLines(putanjaLetovi);
 
-                    // Definišemo moguće formate (pokrivamo i sa tačkom na kraju i bez nje)
+                    // Definišemo moguće formate 
                     string[] formatiDatuma = { "dd.MM.yyyy.", "dd.MM.yyyy" };
 
                     foreach (string linija in linije)
