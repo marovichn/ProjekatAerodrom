@@ -172,11 +172,25 @@
         <TextBlock Text="Kompanija:" Grid.Row="3" Grid.Column="0" Margin="5"/>
         <TextBox x:Name="txtKompanija" Grid.Row="3" Grid.Column="1" Margin="10 5"/>
 
+
         <TextBlock Text="Vreme polaska:" Grid.Row="4" Grid.Column="0" Margin="5"/>
-        <TextBox x:Name="txtVremePolaska" Grid.Row="4" Grid.Column="1" Margin="10 5"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4">
+            <TextBox x:Name="txtVremePolaska" Grid.Row="4" Grid.Column="1" Width="150" Margin="10 5"/>
+
+            <TextBlock Text="Datum polaska:" Grid.Row="6" Grid.Column="0" Margin="12.5"/>
+            <DatePicker x:Name="dpDatumPolaska" Grid.Row="6" Grid.Column="1" Margin="10 5" Width="120"/>
+        </StackPanel>
+
+
 
         <TextBlock Text="Vreme dolaska:" Grid.Row="5" Grid.Column="0" Margin="5"/>
-        <TextBox x:Name="txtVremeDolaska" Grid.Row="5" Grid.Column="1" Margin="10 5"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5">
+            <TextBox x:Name="txtVremeDolaska" Grid.Row="5" Grid.Column="1" Width="150" Margin="10 5"/>
+
+            <TextBlock Text="Datum dolaska:" Grid.Row="7" Grid.Column="0" Margin="12.5"/>
+            <DatePicker x:Name="dpDatumDolaska" Grid.Row="7" Grid.Column="1" Margin="10 5" Width="120"/>
+        </StackPanel>
 
         <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="60 0 0 0">
             <TextBlock Text="Status:" Grid.Row="6" Grid.Column="0" Margin="5"/>

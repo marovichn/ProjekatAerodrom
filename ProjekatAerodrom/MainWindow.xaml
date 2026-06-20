@@ -246,7 +246,7 @@
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0 10" HorizontalAlignment="Stretch" >
                         <TextBox TextChanged="txtSearch_TextChanged" x:Name="txtSearch" Width="200" Margin="10 0" VerticalAlignment="Center"/>
 
-                        <ComboBox x:Name="cbStatus" Width="150" Margin="0 0 10 0" VerticalAlignment="Center">
+                        <ComboBox x:Name="cbStatus" SelectionChanged="cbStatus_SelectionChanged" Width="150" Margin="0 0 10 0" VerticalAlignment="Center">
                             <ComboBoxItem Content="Svi"/>
                             <ComboBoxItem Content="Aktivan"/>
                             <ComboBoxItem Content="Otkazan"/>
@@ -275,7 +275,9 @@
                             <DataGridTextColumn Header="Odredište" Binding="{Binding Odrediste}" Width="*"/>
                             <DataGridTextColumn Header="Kompanija" Binding="{Binding Kompanija}" Width="*"/>
                             <DataGridTextColumn Header="Vreme polaska" Binding="{Binding VremePolaska}" Width="*"/>
+                            <DataGridTextColumn Header="Datum Polaska" Binding="{Binding DatumPolaska, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"/>
                             <DataGridTextColumn Header="Vreme dolaska" Binding="{Binding VremeDolaska}" Width="*"/>
+                            <DataGridTextColumn Header="Datum Dolaska" Binding="{Binding DatumDolaska, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"/>
                             <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -390,7 +392,9 @@
                                 <DataGridTextColumn Header="Odredište" Binding="{Binding Odrediste}" Width="*"/>
                                 <DataGridTextColumn Header="Kompanija" Binding="{Binding Kompanija}" Width="*"/>
                                 <DataGridTextColumn Header="Vreme polaska" Binding="{Binding VremePolaska}" Width="*"/>
+                                <DataGridTextColumn Header="Datum Polaska" Binding="{Binding DatumPolaska, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"/>
                                 <DataGridTextColumn Header="Vreme dolaska" Binding="{Binding VremeDolaska}" Width="*"/>
+                                <DataGridTextColumn Header="Datum Dolaska" Binding="{Binding DatumDolaska, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"/>
                                 <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
                                 <DataGridTemplateColumn  Width="35" >
 

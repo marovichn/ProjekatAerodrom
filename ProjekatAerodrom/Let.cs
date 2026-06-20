@@ -26,20 +26,24 @@ namespace ProjekatAerodrom
         private string vremeDolaska;
         private string status;
         private string ikonica;
+        private DateTime datumPolaska;
+        private DateTime datumDolaska;
 
         public Let()
         {
 
         }
 
-        public Let(string brojLeta, string polazak, string odrediste, string kompanija, string vremePolaska, string vremeDolaska, string status, string ikonica)
+        public Let(string brojLeta, string polazak, string odrediste, string kompanija, string vremePolaska, DateTime datumPolaska, string vremeDolaska, DateTime datumDolaska, string status, string ikonica)
         {
             this.brojLeta = brojLeta;
             this.polazak = polazak;
             this.odrediste = odrediste;
             this.kompanija = kompanija;
             this.vremePolaska = vremePolaska;
+            this.datumPolaska = datumPolaska;
             this.vremeDolaska = vremeDolaska;
+            this.datumDolaska = datumDolaska;
             this.status = status;
             this.ikonica = ikonica;
         }
@@ -132,5 +136,32 @@ namespace ProjekatAerodrom
         }
 
         public string Ikonica { get => ikonica; set => ikonica = value; }
+
+        public DateTime DatumPolaska
+        {
+            get { return datumPolaska; }
+            set
+            {
+                if (value != datumPolaska)
+                {
+                    datumPolaska = value;
+                    OnPropertyChanged("DatumPolaska");
+                }
+            }
+        }
+
+        public DateTime DatumDolaska
+        {
+            get { return datumDolaska; }
+            set
+            {
+                if (value != datumDolaska)
+                {
+                    datumDolaska = value;
+                    OnPropertyChanged("DatumDolaska");
+                }
+            }
+        }
+
     }
 }

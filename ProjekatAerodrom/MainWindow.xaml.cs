@@ -27,6 +27,7 @@ namespace ProjekatAerodrom
 
         //ANIKA TAB 1
 
+
         private void Dodaj_Click(object sender, RoutedEventArgs e)
         {
             LetProzor prozor = new LetProzor();
@@ -41,8 +42,6 @@ namespace ProjekatAerodrom
                 LetProzor prozor = new LetProzor(selektovaniLetovi);
                 prozor.Owner = this;
                 prozor.ShowDialog();
-
-                DGletovi.Items.Refresh();
             }
             else
             {
@@ -78,20 +77,9 @@ namespace ProjekatAerodrom
                         }
                     }
 
-                    //prilikom brisanja leta, uklanjamo i njegovu ikonicu sa mape
-                    var ikonicaZaUklanjanje = MapaCanvas.Children
-                    .OfType<Image>()
-                    .FirstOrDefault(img => img.Tag == selektovaniLet);
-
-                    if (ikonicaZaUklanjanje != null)
-                    {
-                        MapaCanvas.Children.Remove(ikonicaZaUklanjanje);
-                    }
-
                     AppData.ListaLetova.Remove(selektovaniLet);
                     AppData.SacuvajSve();
                     DGSelektovaniLetovi.ItemsSource = null;
-                    
                     DGletovi.Items.Refresh();
 
                     MessageBox.Show("Let je uspešno obrisan", "Uspeh", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -126,6 +114,7 @@ namespace ProjekatAerodrom
             }
         }
 
+        /*
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             ObservableCollection<Let> pretrazenaDG = new ObservableCollection<Let>();
@@ -148,6 +137,52 @@ namespace ProjekatAerodrom
 
             DGletovi.ItemsSource = pretrazenaDG;
         }
+        */
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            FiltrirajLetove();
+        }
+
+        private void cbStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FiltrirajLetove();
+        }
+
+        private void FiltrirajLetove()
+        {
+            
+            if (txtSearch == null || cbStatus == null || DGletovi == null) return;
+
+            string tekstZaPretragu = txtSearch.Text.ToLower().Trim();
+
+            
+            string selektovaniStatus = (cbStatus.SelectedItem as ComboBoxItem)?.Content.ToString();
+
+            ObservableCollection<Let> filtriraniLetovi = new ObservableCollection<Let>();
+
+            foreach (Let l in AppData.ListaLetova)
+            {
+                // tekst
+                bool tekstSePoklapa = string.IsNullOrEmpty(tekstZaPretragu) ||
+                                      l.BrojLeta.ToLower().StartsWith(tekstZaPretragu) ||
+                                      l.Kompanija.ToLower().StartsWith(tekstZaPretragu);
+
+                //  status
+                bool statusSePoklapa = string.IsNullOrEmpty(selektovaniStatus) ||
+                                       selektovaniStatus == "Svi" ||
+                                       l.Status == selektovaniStatus;
+
+                // prikaz
+                if (tekstSePoklapa && statusSePoklapa)
+                {
+                    filtriraniLetovi.Add(l);
+                }
+            }
+
+            DGletovi.ItemsSource = filtriraniLetovi;
+        }
+
 
         //NIKOLA TAB 2
 
@@ -439,5 +474,6 @@ namespace ProjekatAerodrom
             MessageBox.Show("Entitet je uspešno obrisan!", "Uspeh", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+      
     }
 }

@@ -45,6 +45,9 @@ namespace ProjekatAerodrom
                 txtVremeDolaska.Text = letZaIzmenu.VremeDolaska;
                 cbStatusDodaj.Text = letZaIzmenu.Status;
                 txtIkonica.Text = letZaIzmenu.Ikonica;
+
+                dpDatumPolaska.SelectedDate = letZaIzmenu.DatumPolaska;
+                dpDatumDolaska.SelectedDate = letZaIzmenu.DatumDolaska;
             }
         }
 
@@ -67,9 +70,20 @@ namespace ProjekatAerodrom
                 string.IsNullOrWhiteSpace(txtKompanija.Text) ||
                 string.IsNullOrWhiteSpace(txtVremePolaska.Text) ||
                 string.IsNullOrWhiteSpace(txtVremeDolaska.Text) ||
-                cbStatusDodaj.SelectedIndex == -1)
+                cbStatusDodaj.SelectedIndex == -1 ||
+                dpDatumPolaska.SelectedDate == null ||
+                dpDatumDolaska.SelectedDate == null)
             {
                 MessageBox.Show("Sva tekstualna polja moraju biti popunjena!", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            DateTime datumP = dpDatumPolaska.SelectedDate.Value;
+            DateTime datumD = dpDatumDolaska.SelectedDate.Value;
+
+            if (datumP > datumD)
+            {
+                MessageBox.Show("Datumi leta nisu ispravno uneseni!", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -85,7 +99,13 @@ namespace ProjekatAerodrom
                 return;
             }
 
-            string putanjaIkonice = string.IsNullOrWhiteSpace(txtIkonica.Text) ? "Slike/default-let-icon.png" : txtIkonica.Text;
+            if (!txtBrojLeta.Text.All(char.IsDigit))
+            {
+                MessageBox.Show("Broj leta mora da sadrzi samo cifre.", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            string putanjaIkonice = string.IsNullOrWhiteSpace(txtIkonica.Text) ? "Slike/default.png" : txtIkonica.Text;
 
             ComboBoxItem selektovaniItem = (ComboBoxItem)cbStatusDodaj.SelectedItem;
             string statusLeta = selektovaniItem.Content.ToString();
@@ -101,11 +121,14 @@ namespace ProjekatAerodrom
                 letZaIzmenu.Status = statusLeta;
                 letZaIzmenu.Ikonica = putanjaIkonice;
 
+                letZaIzmenu.DatumPolaska = datumP;
+                letZaIzmenu.DatumDolaska = datumD;
+
                 MessageBox.Show("Promene su uspešno sačuvane!", "Uspeh", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                Let novi = new Let(txtBrojLeta.Text, txtPolazak.Text, txtOdrediste.Text, txtKompanija.Text, txtVremePolaska.Text, txtVremeDolaska.Text, statusLeta, putanjaIkonice);
+                Let novi = new Let(txtBrojLeta.Text, txtPolazak.Text, txtOdrediste.Text, txtKompanija.Text, txtVremePolaska.Text, datumP, txtVremeDolaska.Text, datumD, statusLeta, txtIkonica.Text);
                 AppData.ListaLetova.Add(novi);
                 MessageBox.Show("Let je uspešno dodat!", "Uspeh", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -161,7 +184,10 @@ namespace ProjekatAerodrom
                         int vremeP = Int32.Parse(deloviP[0]) * 1000 + Int32.Parse(deloviP[1]);
                         int vremeD = Int32.Parse(deloviD[0]) * 1000 + Int32.Parse(deloviD[1]);
 
-                        if (vremeP > vremeD)
+                        DateTime datumP = dpDatumPolaska.SelectedDate.Value;
+                        DateTime datumD = dpDatumDolaska.SelectedDate.Value;
+
+                        if (vremeP > vremeD && datumP == datumD)
                         {
                             //MessageBox.Show("Nije ispravno uneto vreme!");
                             vreme = false;
